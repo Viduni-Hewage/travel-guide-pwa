@@ -1,36 +1,36 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --color-bg: #F9FAFB;
-  --color-surface: #FFFFFF;
-  --color-surface-2: #F3F4F6;
-  --color-primary: #064E3B;
-  --color-primary-hover: #065F46;
-  --color-accent: #D97706;
-  --color-accent-2: #F59E0B;
-  --color-text: #0F172A;
-  --color-text-muted: #6B7280;
-  --color-border: #E5E7EB;
-  --color-card-bg: #FFFFFF;
-  --nav-bg: #064E3B;
-  --nav-text: #FFFFFF;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f4f6;
+  --color-primary: #064e3b;
+  --color-primary-hover: #065f46;
+  --color-accent: #d97706;
+  --color-accent-2: #f59e0b;
+  --color-text: #0f172a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card-bg: #ffffff;
+  --nav-bg: #064e3b;
+  --nav-text: #ffffff;
   --bottom-nav-height: 64px;
 }
 
-[data-theme="dark"] {
+[data-theme='dark'] {
   --color-bg: #121212;
-  --color-surface: #1A2E21;
-  --color-surface-2: #0F1F15;
-  --color-primary: #064E3B;
-  --color-primary-hover: #065F46;
-  --color-accent: #2DD4BF;
-  --color-accent-2: #5EEAD4;
-  --color-text: #F9FAFB;
-  --color-text-muted: #9CA3AF;
-  --color-border: #2D3748;
-  --color-card-bg: #1A2E21;
-  --nav-bg: #0A0A0A;
-  --nav-text: #FFFFFF;
+  --color-surface: #1a2e21;
+  --color-surface-2: #0f1f15;
+  --color-primary: #064e3b;
+  --color-primary-hover: #065f46;
+  --color-accent: #2dd4bf;
+  --color-accent-2: #5eead4;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #2d3748;
+  --color-card-bg: #1a2e21;
+  --nav-bg: #0a0a0a;
+  --nav-text: #ffffff;
 }
 
 * {
@@ -47,15 +47,24 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: 'Inter', sans-serif;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   -webkit-tap-highlight-color: transparent;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Playfair Display', serif;
 }
 
-button, a, [role="button"] {
+button,
+a,
+[role='button'] {
   min-height: 48px;
   min-width: 48px;
 }
