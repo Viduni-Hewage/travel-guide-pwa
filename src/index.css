@@ -68,3 +68,9 @@ a,
   min-height: 48px;
   min-width: 48px;
 }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+

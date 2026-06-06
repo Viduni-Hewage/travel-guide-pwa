@@ -7,8 +7,8 @@ import DetailPage from './pages/DetailPage.jsx'
 import FavoritesPage from './pages/FavoritesPage.jsx'
 import SettingsPage from './pages/SettingsPage.jsx'
 import Layout from './components/Layout/Layout.jsx'
-import PermissionPage from './pages/PermissionPage.tsx'
-import SplashPage from './pages/SplashPage.tsx'
+import SplashPage from './pages/SplashPage.jsx'
+import PermissionPage from './pages/PermissionPage.jsx'
 
 export default function App() {
   return (
