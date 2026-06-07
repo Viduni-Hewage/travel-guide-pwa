@@ -15,6 +15,10 @@
   --nav-bg: #064e3b;
   --nav-text: #ffffff;
   --bottom-nav-height: 64px;
+  --color-title-sub: #FFFFFF;
+  --footer-bg: #FFFFFF;
+  --des-footer-text: #064e3b;
+
 }
 
 [data-theme='dark'] {
@@ -29,8 +33,11 @@
   --color-text-muted: #9ca3af;
   --color-border: #2d3748;
   --color-card-bg: #1a2e21;
-  --nav-bg: #0a0a0a;
+  --nav-bg: #353534;
   --nav-text: #ffffff;
+  --color-title-sub: #95D3BA;
+  --footer-bg: #353534;
+  --des-footer-text: #95D3BA;
 }
 
 * {
