@@ -18,8 +18,12 @@ function AttractionCard({ attraction }) {
 
   return (
     <div
-      className="rounded-2xl overflow-hidden cursor-pointer group pb-2!"
-      style={{ backgroundColor: 'var(--color-bg)' }}
+      className="rounded-2xl overflow-hidden cursor-pointer group pb-1!"
+      style={{
+        backgroundColor: 'var(--color-bg)',
+        border: '1px solid var(--color-border)',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+      }}
       onClick={() => navigate(`/attraction/${attraction.id}`)}
     >
       <div className="relative mb-1!">
@@ -55,7 +59,7 @@ function AttractionCard({ attraction }) {
         </button>
       </div>
 
-      <div className="p-4">
+      <div className="p-4!">
         <div className="flex items-start justify-between gap-2 mb-1!">
           <h3
             className="text-base font-semibold leading-tight"
@@ -74,7 +78,7 @@ function AttractionCard({ attraction }) {
           </div>
         </div>
 
-        <p className="text-sm mb-3 line-clamp-2 mb-1!" style={{ color: 'var(--color-text-muted)' }}>
+        <p className="text-sm line-clamp-2 mb-1!" style={{ color: 'var(--color-text-muted)' }}>
           {attraction.description}
         </p>
 
