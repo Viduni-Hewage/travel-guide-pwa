@@ -20,6 +20,7 @@
   --des-footer-text: #064e3b;
   --sample-bg1: #E7E8E9;
   --sample-bg2: #95D3BA;
+  --sample-bg3: #d97706;
   --color-text2: #707974;
   --color-text3: #95D3BA;
 
@@ -46,6 +47,7 @@
   --sample-bg2: #2A2A2A;
   --color-text2: #95D3BA;
   --color-text3: #064e3b;
+  --sample-bg3: #064e3b;
 }
 
 * {
