@@ -14,7 +14,7 @@ function Layout() {
       <MobileHeader />
 
       {/* Page content */}
-      <main className="md:pt-0 pt-14 pb-16 md:pb-0">
+      <main className="pt-14! pb-20 md:pb-0">
         <Outlet />
       </main>
 

@@ -6,7 +6,7 @@ function MobileHeader() {
 
   return (
     <header
-      className="md:hidden relative flex items-center justify-between h-14 top-0 left-0 right-0 z-50"
+      className="md:hidden fixed flex items-center justify-between h-14 top-0 left-0 right-0 z-50"
       style={{
         backgroundColor: 'var(--nav-bg)',
         paddingLeft: '1.5rem',

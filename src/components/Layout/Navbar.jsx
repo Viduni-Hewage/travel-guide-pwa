@@ -7,7 +7,8 @@ function Navbar() {
 
   return (
     <nav
-      className="hidden md:flex items-center justify-between h-16"
+      // className="hidden md:flex items-center justify-between h-16"
+      className="hidden md:flex items-center justify-between h-16 fixed top-0 left-0 right-0 z-50"
       style={{
         backgroundColor: 'var(--nav-bg)',
         paddingLeft: '3rem',
