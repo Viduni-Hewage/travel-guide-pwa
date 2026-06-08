@@ -9,6 +9,8 @@ import SettingsPage from './pages/SettingsPage.jsx'
 import Layout from './components/Layout/Layout.jsx'
 import SplashPage from './pages/SplashPage.jsx'
 import PermissionPage from './pages/PermissionPage.jsx'
+import HelpPage from './pages/HelpPage.jsx'
+import PrivacyPage from './pages/PrivacyPage.jsx'
 
 export default function App() {
   return (
@@ -24,6 +26,8 @@ export default function App() {
                 <Route path="attraction/:id" element={<DetailPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
                 <Route path="settings" element={<SettingsPage />} />
+                <Route path="help" element={<HelpPage />} />
+                <Route path="privacy" element={<PrivacyPage />} />
               </Route>
               <Route path="*" element={<Navigate to="/splash" replace />} />
             </Routes>

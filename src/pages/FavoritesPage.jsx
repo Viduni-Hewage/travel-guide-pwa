@@ -13,7 +13,7 @@ function FavoriteCard({ attraction, onRemove }) {
 
   return (
     <div
-      className="rounded-2xl overflow-hidden cursor-pointer group pb-1!"
+      className="rounded-2xl overflow-hidden group pb-1!"
       style={{
         backgroundColor: 'var(--color-bg)',
         border: '1px solid var(--color-border)',
@@ -47,7 +47,7 @@ function FavoriteCard({ attraction, onRemove }) {
 
         <button
           onClick={() => onRemove(attraction.id)}
-          className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center min-h-0 min-w-0"
+          className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center min-h-0 min-w-0 cursor-pointer"
           style={{ backgroundColor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}
         >
           <Heart className="w-5 h-5" style={{ color: '#ef4444' }} fill="#ef4444" />
@@ -91,7 +91,11 @@ function FavoriteCard({ attraction, onRemove }) {
               </span>
             ))}
           </div>
-          <span className="text-xs whitespace-nowrap" style={{ color: 'var(--des-footer-text)' }}>
+          <span
+            className="text-xs whitespace-nowrap cursor-pointer"
+            style={{ color: 'var(--des-footer-text)' }}
+            onClick={() => navigate(`/attraction/${attraction.id}`)}
+          >
             View Details →
           </span>
         </div>
@@ -163,7 +167,7 @@ function FavoritesPage() {
             </p>
             <button
               onClick={() => navigate('/')}
-              className="px-6! py-3! rounded-full text-white text-sm font-medium min-h-0"
+              className="px-6! py-3! rounded-full text-white text-sm font-medium min-h-0 cursor-pointer"
               style={{ backgroundColor: 'var(--color-primary)' }}
             >
               Start Exploring
@@ -189,7 +193,7 @@ function FavoritesPage() {
                 </p>
                 <button
                   onClick={() => navigate('/')}
-                  className="px-8! py-2! rounded-full text-sm font-medium min-h-0"
+                  className="px-8! py-2! rounded-full text-sm font-medium min-h-0 cursor-pointer"
                   style={{
                     border: '1px solid var(--color-border)',
                     color: 'var(--color-text)',
