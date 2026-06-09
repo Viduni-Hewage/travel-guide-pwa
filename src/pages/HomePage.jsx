@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Search, MapPin, Heart, Star, Navigation, Sun, Compass, Landmark, Leaf, Waves, Building2 } from 'lucide-react'
 import { useFavorites } from '../context/FavoritesContext'
@@ -6,6 +6,7 @@ import { useLocation } from '../context/LocationContext'
 import { useWeather } from '../hooks/useWeather'
 import attractions from '../data/attractions.json'
 import homeBg from '../assets/images/home-bg.png'
+import Loader from '../components/UI/Loader.jsx'
 
 const categories = ['All', 'Historical', 'Nature', 'Beaches', 'Hotels']
 
@@ -183,6 +184,8 @@ function DesktopAttractionCard({ attraction }) {
 function HomePage() {
   const [activeCategory, setActiveCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState(true)
+
   const { location } = useLocation()
   const { weather } = useWeather(location?.lat, location?.lng)
 
@@ -193,6 +196,11 @@ function HomePage() {
       a.description.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesCategory && matchesSearch
   })
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1500)
+    return () => clearTimeout(timer)
+  }, [])
 
   const categoryIcons = {
     Explore: Compass,
@@ -290,9 +298,13 @@ function HomePage() {
             <div className="text-center py-16">
               <p style={{ color: 'var(--color-text-muted)' }}>No attractions found</p>
             </div>
+          ) : loading ? (
+            <Loader />
           ) : (
             filtered.map((attraction) => <AttractionCard key={attraction.id} attraction={attraction} />)
-          )}
+          )
+          //filtered.map((attraction) => <AttractionCard key={attraction.id} attraction={attraction} />)
+          }
         </div>
 
         <div
@@ -406,9 +418,13 @@ function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12!">
-              {filtered.map((attraction) => (
-                <DesktopAttractionCard key={attraction.id} attraction={attraction} />
-              ))}
+              {loading ? (
+                <div className="col-span-full">
+                  <Loader />
+                </div>
+              ) : (
+                filtered.map((attraction) => <DesktopAttractionCard key={attraction.id} attraction={attraction} />)
+              )}
             </div>
           )}
 
