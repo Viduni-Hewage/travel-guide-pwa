@@ -259,6 +259,7 @@ function HomePage() {
           >
             <Search className="w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
             <input
+              id="search-input"
               type="text"
               placeholder="Search experiences, destinations..."
               value={searchQuery}
@@ -302,9 +303,7 @@ function HomePage() {
             <Loader />
           ) : (
             filtered.map((attraction) => <AttractionCard key={attraction.id} attraction={attraction} />)
-          )
-          //filtered.map((attraction) => <AttractionCard key={attraction.id} attraction={attraction} />)
-          }
+          )}
         </div>
 
         <div
@@ -360,6 +359,7 @@ function HomePage() {
               >
                 <Search className="w-6 h-6" style={{ color: 'var(--des-footer-text)' }} />
                 <input
+                  id="search-input-desktop"
                   type="text"
                   placeholder="Where would you like to escape?"
                   value={searchQuery}

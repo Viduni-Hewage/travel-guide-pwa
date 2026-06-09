@@ -1,9 +1,10 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { Sun, Moon, User } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
 function Navbar({ isOffline }) {
   const { isDark, toggleTheme } = useTheme()
+  const navigate = useNavigate()
 
   return (
     <nav
@@ -25,34 +26,51 @@ function Navbar({ isOffline }) {
       <div className="flex items-center gap-8">
         {[
           { label: 'Explore', to: '/' },
-          { label: 'Search', to: '/search' },
+          { label: 'Search', to: null, focusSearch: true },
           { label: 'Saved', to: '/favorites' },
           { label: 'Settings', to: '/settings' },
-        ].map(({ label, to }) => (
-          <NavLink
-            key={label}
-            to={to}
-            end={to === '/'}
-            className="flex items-center h-16"
-            style={{ fontFamily: "'Inter', sans-serif" }}
-          >
-            {({ isActive }) => (
-              <span
-                style={{
-                  fontSize: '0.875rem',
-                  color: isActive ? '#FFDCC3' : 'white',
-                  opacity: isActive ? 1 : 0.7,
-                  fontWeight: isActive ? 500 : 400,
-                  textDecoration: isActive ? 'underline' : 'none',
-                  textUnderlineOffset: '8px',
-                  textDecorationThickness: '1.5px',
-                }}
-              >
-                {label}
-              </span>
-            )}
-          </NavLink>
-        ))}
+        ].map(({ label, to, focusSearch }) =>
+          focusSearch ? (
+            <button
+              key={label}
+              className="flex items-center h-16 cursor-pointer"
+              style={{ fontFamily: "'Inter', sans-serif", background: 'none', border: 'none', padding: 0 }}
+              onClick={() => {
+                navigate('/')
+                setTimeout(() => {
+                  document.getElementById('search-input')?.focus()
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                }, 100)
+              }}
+            >
+              <span style={{ fontSize: '0.875rem', color: 'white', opacity: 0.7, fontWeight: 400 }}>{label}</span>
+            </button>
+          ) : (
+            <NavLink
+              key={label}
+              to={to}
+              end={to === '/'}
+              className="flex items-center h-16"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              {({ isActive }) => (
+                <span
+                  style={{
+                    fontSize: '0.875rem',
+                    color: isActive ? '#FFDCC3' : 'white',
+                    opacity: isActive ? 1 : 0.7,
+                    fontWeight: isActive ? 500 : 400,
+                    textDecoration: isActive ? 'underline' : 'none',
+                    textUnderlineOffset: '8px',
+                    textDecorationThickness: '1.5px',
+                  }}
+                >
+                  {label}
+                </span>
+              )}
+            </NavLink>
+          )
+        )}
       </div>
 
       <div className="flex items-center gap-4">
