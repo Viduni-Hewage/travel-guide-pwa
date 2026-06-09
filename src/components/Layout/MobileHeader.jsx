@@ -1,7 +1,7 @@
 import { Menu, Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
-function MobileHeader() {
+function MobileHeader({ isOffline }) {
   const { isDark, toggleTheme } = useTheme()
 
   return (
@@ -11,6 +11,7 @@ function MobileHeader() {
         backgroundColor: 'var(--nav-bg)',
         paddingLeft: '1.5rem',
         paddingRight: '0rem',
+        top: isOffline ? '16px' : '0px',
       }}
     >
       <button className="text-white min-h-0 min-w-0 p-1" aria-label="Menu">

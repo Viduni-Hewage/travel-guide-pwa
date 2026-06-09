@@ -2,17 +2,17 @@ import { NavLink } from 'react-router-dom'
 import { Sun, Moon, User } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
-function Navbar() {
+function Navbar({ isOffline }) {
   const { isDark, toggleTheme } = useTheme()
 
   return (
     <nav
-      // className="hidden md:flex items-center justify-between h-16"
       className="hidden md:flex items-center justify-between h-16 fixed top-0 left-0 right-0 z-50"
       style={{
         backgroundColor: 'var(--nav-bg)',
         paddingLeft: '3rem',
         paddingRight: '3rem',
+        top: isOffline ? '16px' : '0px',
       }}
     >
       <div

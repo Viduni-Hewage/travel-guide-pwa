@@ -11,6 +11,7 @@ import SplashPage from './pages/SplashPage.jsx'
 import PermissionPage from './pages/PermissionPage.jsx'
 import HelpPage from './pages/HelpPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
+import OfflinePage from './pages/OfflinePage.jsx'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
                 <Route path="settings" element={<SettingsPage />} />
                 <Route path="help" element={<HelpPage />} />
                 <Route path="privacy" element={<PrivacyPage />} />
+                <Route path="offline" element={<OfflinePage />} />
               </Route>
               <Route path="*" element={<Navigate to="/splash" replace />} />
             </Routes>
