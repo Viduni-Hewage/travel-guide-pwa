@@ -9,18 +9,8 @@ import Footer from './Footer.jsx'
 
 function Layout() {
   const isOnline = useOnlineStatus()
-  const navigate = useNavigate()
   const routerLocation = useRouterLocation()
   const hideHeader = routerLocation.pathname.startsWith('/attraction')
-
-  useEffect(() => {
-    if (!isOnline && routerLocation.pathname !== '/offline') {
-      navigate('/offline')
-    }
-    if (isOnline && routerLocation.pathname === '/offline') {
-      navigate('/')
-    }
-  }, [isOnline, navigate, routerLocation.pathname])
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
@@ -31,11 +21,10 @@ function Layout() {
       <Navbar isOffline={!isOnline} />
 
       {/* Mobile top header */}
-      {/*{!hideHeader && <MobileHeader />}*/}
       {!hideHeader && <MobileHeader isOffline={!isOnline} />}
 
       {/* Page content */}
-      <main className={`${hideHeader ? 'pt-0' : 'pt-14!'} pb-20 md:pb-0`}>
+      <main className={`${hideHeader ? 'pt-0' : 'pt-14!'} pb-20 md:pb-0 ${!isOnline ? 'mt-8' : ''}`}>
         <Outlet />
       </main>
 
