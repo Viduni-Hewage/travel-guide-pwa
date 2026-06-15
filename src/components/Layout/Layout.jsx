@@ -1,6 +1,5 @@
 import { useOnlineStatus } from '../../hooks/useOnlineStatus.js'
-import { useNavigate, useLocation as useRouterLocation, Outlet } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useLocation as useRouterLocation, Outlet } from 'react-router-dom'
 import OfflineBanner from '../UI/OfflineBanner.jsx'
 import Navbar from './Navbar.jsx'
 import MobileHeader from './MobileHeader.jsx'

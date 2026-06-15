@@ -4,6 +4,7 @@ import { Moon, Bell, HelpCircle, Shield, ChevronRight, LogOut, Download, MapPin,
 import { useTheme } from '../context/ThemeContext'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useLocation } from '../context/LocationContext'
+import { useInstallPrompt } from '../hooks/useInstallPrompt'
 
 const AVATAR_SEEDS = ['Aria', 'Nomad', 'Felix', 'Jasmine', 'Orion', 'Luna']
 
@@ -106,6 +107,7 @@ function SettingsPage() {
   const [isEditingName, setIsEditingName] = useState(false)
   const [tempName, setTempName] = useState(displayName)
   const [showAvatarPicker, setShowAvatarPicker] = useState(false)
+  const { isInstalled, promptInstall } = useInstallPrompt()
 
   const handleSaveName = () => {
     if (tempName.trim()) {
@@ -119,8 +121,15 @@ function SettingsPage() {
     navigate('/splash', { replace: true })
   }
 
-  const handleInstall = () => {
-    window.dispatchEvent(new Event('show-install-prompt'))
+  const handleInstall = async () => {
+    const installed = await promptInstall()
+    if (installed) {
+      console.log('App installed successfully')
+    } else {
+      alert(
+        'To install: click the install icon (⊕) in your browser\'s address bar, or use the browser menu → "Install LankaExplorer"'
+      )
+    }
   }
 
   const locationLabel = location ? 'Colombo, Sri Lanka' : 'Location unavailable'
@@ -255,39 +264,41 @@ function SettingsPage() {
           </div>
         </div>
 
-        <div
-          className="relative rounded-2xl overflow-hidden mb-6! p-6!"
-          style={{ backgroundColor: 'var(--color-primary)' }}
-        >
-          <div className="absolute right-4 bottom-4 opacity-10">
-            <Download className="w-24 h-24 text-white" />
-          </div>
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <h3 className="text-white text-lg font-bold mb-1!" style={{ fontFamily: "'Playfair Display', serif" }}>
-                Experience Sri Lanka Offline
-              </h3>
-              <p className="text-white opacity-70 text-sm mb-4!">
-                Download LankaExplorer to access curated boutique guides and heritage maps without an internet
-                connection.
-              </p>
-              <button
-                onClick={handleInstall}
-                className="flex items-center gap-2 px-5! py-2! rounded-full text-white text-sm font-medium min-h-0! cursor-pointer"
-                style={{ backgroundColor: 'var(--color-accent)' }}
+        {!isInstalled && (
+          <div
+            className="relative rounded-2xl overflow-hidden mb-6! p-6!"
+            style={{ backgroundColor: 'var(--color-primary)' }}
+          >
+            <div className="absolute right-4 bottom-4 opacity-10">
+              <Download className="w-24 h-24 text-white" />
+            </div>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <h3 className="text-white text-lg font-bold mb-1!" style={{ fontFamily: "'Playfair Display', serif" }}>
+                  Experience Sri Lanka Offline
+                </h3>
+                <p className="text-white opacity-70 text-sm mb-4!">
+                  Download LankaExplorer to access curated boutique guides and heritage maps without an internet
+                  connection.
+                </p>
+                <button
+                  onClick={handleInstall}
+                  className="flex items-center gap-2 px-5! py-2! rounded-full text-white text-sm font-medium min-h-0! cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: 'var(--color-accent)' }}
+                >
+                  <Download className="w-4 h-4" />
+                  Install Now
+                </button>
+              </div>
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 cursor-pointer"
+                style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
               >
-                <Download className="w-4 h-4" />
-                Install Now
-              </button>
-            </div>
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 cursor-pointer"
-              style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
-            >
-              <Download className="w-5 h-5 text-white" />
+                <Download className="w-5 h-5 text-white" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="flex flex-col gap-3 mb-8!">
           {[
