@@ -11,6 +11,7 @@ import SplashPage from './pages/SplashPage.jsx'
 import PermissionPage from './pages/PermissionPage.jsx'
 import HelpPage from './pages/HelpPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
+import ScrollToTop from './components/ScrollToTop.jsx'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
       <FavoritesProvider>
         <LocationProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/splash" element={<SplashPage />} />
               <Route path="/permission" element={<PermissionPage />} />
