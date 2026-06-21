@@ -43,11 +43,15 @@ function DetailPage() {
 
   const handleShare = async () => {
     if (navigator.share) {
-      await navigator.share({
-        title: attraction.name,
-        text: attraction.description,
-        url: window.location.href,
-      })
+      try {
+        await navigator.share({
+          title: attraction.name,
+          text: attraction.description,
+          url: window.location.href,
+        })
+      } catch (err) {
+        if (err.name !== 'AbortError') throw err
+      }
     }
   }
 
@@ -260,7 +264,7 @@ function DetailPage() {
             </p>
             <button
               onClick={handleGetDirections}
-              className="w-full py-3 rounded-full text-white font-medium text-sm flex items-center justify-center gap-2 mb-4! min-h-0"
+              className="w-full py-3 rounded-full text-white font-medium text-sm flex items-center justify-center gap-2 mb-4! min-h-0 cursor-pointer!"
               style={{ backgroundColor: 'var(--des-footer-text)', color: 'var(--color-card-bg)' }}
             >
               <Navigation className="w-4 h-4" />
@@ -268,7 +272,7 @@ function DetailPage() {
             </button>
             <button
               onClick={handleShare}
-              className="w-full rounded-full font-medium text-sm flex items-center justify-center gap-2 min-h-0"
+              className="w-full rounded-full font-medium text-sm flex items-center justify-center gap-2 min-h-0 cursor-pointer"
               style={{
                 border: '1px solid var(--des-footer-text)',
                 color: 'var(--des-footer-text)',
@@ -452,7 +456,7 @@ function DetailPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={handleGetDirections}
-                className="flex items-center gap-2 px-6! py-3! rounded-full text-white font-medium text-sm min-h-0"
+                className="flex items-center gap-2 px-6! py-3! rounded-full text-white font-medium text-sm min-h-0 cursor-pointer"
                 style={{ backgroundColor: 'var(--des-footer-text)', color: 'var(--color-card-bg)' }}
               >
                 <Navigation className="w-4 h-4" />
@@ -460,7 +464,7 @@ function DetailPage() {
               </button>
               <button
                 onClick={handleShare}
-                className="flex items-center gap-2 px-6! py-3! rounded-full font-medium text-sm min-h-0"
+                className="flex items-center gap-2 px-6! py-3! rounded-full font-medium text-sm min-h-0 cursor-pointer"
                 style={{
                   border: '1px solid var(--des-footer-text)',
                   color: 'var(--des-footer-text)',

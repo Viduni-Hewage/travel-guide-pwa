@@ -17,7 +17,8 @@ function Navbar({ isOffline }) {
       }}
     >
       <div
-        className="text-xl font-semibold"
+        onClick={() => navigate('/')}
+        className="text-xl font-semibold cursor-pointer"
         style={{ fontFamily: "'Playfair Display', serif", color: 'var(--color-title-sub)' }}
       >
         LankaExplorer
@@ -82,7 +83,12 @@ function Navbar({ isOffline }) {
           {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
         </button>
 
-        <div className="w-9 h-9 rounded-full flex items-center justify-center" style={{ backgroundColor: '#2DD4BF' }}>
+        <div
+          onClick={() => navigate('/settings')}
+          className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer"
+          style={{ backgroundColor: '#2DD4BF' }}
+          aria-label="Go to settings"
+        >
           <User className="w-4 h-4 text-white" />
         </div>
       </div>
