@@ -24,7 +24,9 @@ function Layout() {
 
       {/* Page content */}
       <main className={`${hideHeader ? 'pt-0' : 'pt-14!'} pb-20 md:pb-0 ${!isOnline ? 'mt-8' : ''}`}>
-        <Outlet />
+        <div className="page-transition" key={routerLocation.pathname}>
+          <Outlet />
+        </div>
       </main>
 
       {/* Mobile bottom nav */}
