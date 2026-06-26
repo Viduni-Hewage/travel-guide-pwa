@@ -14,9 +14,8 @@ function MobileHeader({ isOffline }) {
         top: isOffline ? '16px' : '0px',
       }}
     >
-      <button className="text-white min-h-0 min-w-0 p-1" aria-label="Menu">
-        <Menu className="w-5 h-5" />
-      </button>
+      {/* Logo image */}
+      <img src="/favicon.svg" alt="LankaExplorer" className="w-8 h-8 rounded-lg" />
       <div
         className="absolute left-1/2 -translate-x-1/2 text-lg font-semibold"
         style={{ fontFamily: "'Playfair Display', serif", color: 'var(--color-title-sub)' }}

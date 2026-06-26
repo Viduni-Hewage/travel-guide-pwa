@@ -311,17 +311,22 @@ function HomePage() {
           style={{ backgroundColor: 'var(--color-primary)', marginBottom: '1rem' }}
         >
           <h2 className="text-white text-3xl font-semibold mb-4!" style={{ fontFamily: "'Playfair Display', serif" }}>
-            Plan Your Elite Escape
+            Crafted for the Discerning Traveler
           </h2>
           <p className="text-white opacity-80 text-md mb-6!">
-            Access hand-picked boutique villas and curated local experiences tailored for the discerning traveler.
+            Every stay, route, and experience on Ceylon Escapes is hand-selected so you arrive somewhere that feels
+            genuinely rare.
           </p>
-          <button
-            className="px-6! py-3! rounded-full text-white font-medium text-sm min-h-0"
-            style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-surface-2)' }}
-          >
-            Start Customizing
-          </button>
+          <div className="flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-1.5">
+              <span className="text-white text-base">✦</span>
+              <span className="text-white text-sm opacity-90 font-medium">30+ Curated Stays</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-white text-base">✦</span>
+              <span className="text-white text-sm opacity-90 font-medium">Tailored Itineraries</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -430,23 +435,22 @@ function HomePage() {
 
           <div className="rounded-2xl p-12! text-center mb-12" style={{ backgroundColor: 'var(--color-primary)' }}>
             <h2 className="text-white text-3xl font-bold mb-6!" style={{ fontFamily: "'Playfair Display', serif" }}>
-              Plan Your Tailored Journey
+              Crafted for the Discerning Traveler
             </h2>
             <p className="text-white opacity-80 mb-6! mx-auto">
-              Connect with our local travel designers to craft an itinerary that matches your taste for discovery and
-              luxury.
+              Every stay, route, and experience on Ceylon Escapes is hand-selected so you arrive somewhere that feels
+              genuinely rare.
             </p>
-            <div className="">
-              <button
-                className="px-6! py-2! rounded-full text-md min-h-0"
-                style={{
-                  border: '1px solid rgba(255,255,255,0.5)',
-                  color: '#ffffff',
-                  backgroundColor: 'transparent',
-                }}
-              >
-                Download Brochure
-              </button>
+            <div className="flex items-center justify-center gap-6 flex-wrap">
+              <div className="flex items-center gap-1.5">
+                <span className="text-white text-base">✦</span>
+                <span className="text-white text-sm opacity-90 font-medium">200+ Curated Stays</span>
+              </div>
+              <span className="text-white opacity-40 text-sm">|</span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-white text-base">✦</span>
+                <span className="text-white text-sm opacity-90 font-medium">Tailored Itineraries</span>
+              </div>
             </div>
           </div>
         </div>
