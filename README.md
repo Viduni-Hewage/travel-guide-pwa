@@ -2,7 +2,7 @@
 
 A boutique travel companion Progressive Web App for exploring Sri Lanka's heritage sites, nature reserves, beaches, and luxury hotels.
 
-🔗 **Live App:** 
+🔗 **Live App:** [https://lankaexplorer.vercel.app/](https://lankaexplorer.vercel.app/)
 
 ---
 
