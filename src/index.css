@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+:root {
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-surface-2: #000000;
+  --color-primary: #064e3b;
+  --color-primary-hover: #065f46;
+  --color-accent: #d97706;
+  --color-accent-2: #f59e0b;
+  --color-text: #0f172a;
+  --color-text-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-card-bg: #ffffff;
+  --nav-bg: #064e3b;
+  --nav-text: #064e3b;
+  --bottom-nav-height: 64px;
+  --color-title-sub: #FFFFFF;
+  --footer-bg: #FFFFFF;
+  --des-footer-text: #064e3b;
+  --sample-bg1: #E7E8E9;
+  --sample-bg2: #95D3BA;
+  --sample-bg3: #d97706;
+  --color-text2: #707974;
+  --color-text3: #95D3BA;
+
+}
+
+[data-theme='dark'] {
+  --color-bg: #121212;
+  --color-surface: #1a2e21;
+  --color-surface-2: #0f1f15;
+  --color-primary: #064e3b;
+  --color-primary-hover: #065f46;
+  --color-accent: #95D3BA;
+  --color-accent-2: #5eead4;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #2d3748;
+  --color-card-bg: #1a2e21;
+  --nav-bg: #353534;
+  --nav-text: #ffffff;
+  --color-title-sub: #95D3BA;
+  --footer-bg: #353534;
+  --des-footer-text: #95D3BA;
+  --sample-bg1: #2A2A2A;
+  --sample-bg2: #2A2A2A;
+  --color-text2: #95D3BA;
+  --color-text3: #064e3b;
+  --sample-bg3: #064e3b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Inter', sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+button,
+a,
+[role='button'] {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes dotPulse {
+  0%, 80%, 100% {
+    transform: scale(0.6);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageFadeIn 0.3s ease-out;
+}
+
