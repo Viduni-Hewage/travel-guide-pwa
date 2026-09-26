@@ -47,7 +47,7 @@ function AttractionCard({ attraction }) {
         <button
           onClick={(e) => {
             e.stopPropagation()
-            toggleFavorite(attraction.id)
+            toggleFavorite(attraction.id, attraction.name)
           }}
           className="absolute top-3 right-3 rounded-full flex items-center justify-center min-h-0 min-w-0"
           style={{ backgroundColor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}
@@ -138,7 +138,7 @@ function DesktopAttractionCard({ attraction }) {
         <button
           onClick={(e) => {
             e.stopPropagation()
-            toggleFavorite(attraction.id)
+            toggleFavorite(attraction.id, attraction.name)
           }}
           className="absolute top-3 right-3 rounded-full flex items-center justify-center min-h-0 min-w-0"
           style={{ backgroundColor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}

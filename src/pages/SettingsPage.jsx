@@ -5,6 +5,7 @@ import { useTheme } from '../context/ThemeContext'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useLocation } from '../context/LocationContext'
 import { useInstallPrompt } from '../hooks/useInstallPrompt'
+import { requestNotificationPermission, sendNotification } from '../utils/notifications.js'
 
 const AVATAR_SEEDS = ['Aria', 'Nomad', 'Felix', 'Jasmine', 'Orion', 'Luna']
 
@@ -260,7 +261,24 @@ function SettingsPage() {
                 </p>
               </div>
             </div>
-            <Toggle enabled={notifications} onToggle={() => setNotifications((prev) => !prev)} />
+            <Toggle
+              enabled={notifications}
+              onToggle={async () => {
+                if (!notifications) {
+                  const permission = await requestNotificationPermission()
+                  if (permission === 'granted') {
+                    setNotifications(true)
+                    sendNotification('LankaExplorer', {
+                      body: "Notifications enabled! We'll alert you when you save new favorites.",
+                    })
+                  } else if (permission === 'denied') {
+                    alert('Notification permission was denied. Please enable it in your browser settings.')
+                  }
+                } else {
+                  setNotifications(false)
+                }
+              }}
+            />{' '}
           </div>
         </div>
 

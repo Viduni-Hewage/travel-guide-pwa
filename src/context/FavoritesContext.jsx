@@ -1,15 +1,30 @@
 import { createContext, useContext } from 'react'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { sendNotification } from '../utils/notifications'
 
 const FavoritesContext = createContext(null)
 
 export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useLocalStorage('lanka_favorites', [])
 
-  const toggleFavorite = (attractionId) => {
-    setFavorites((prev) =>
-      prev.includes(attractionId) ? prev.filter((id) => id !== attractionId) : [...prev, attractionId]
-    )
+  const toggleFavorite = (attractionId, attractionName) => {
+    setFavorites((prev) => {
+      const isAdding = !prev.includes(attractionId)
+
+      if (attractionName) {
+        if (isAdding) {
+          sendNotification('Added to Favorites ❤️', {
+            body: `${attractionName} has been saved to your travel list.`,
+          })
+        } else {
+          sendNotification('Removed from Favorites', {
+            body: `${attractionName} has been removed from your travel list.`,
+          })
+        }
+      }
+
+      return isAdding ? [...prev, attractionId] : prev.filter((id) => id !== attractionId)
+    })
   }
 
   const isFavorite = (attractionId) => favorites.includes(attractionId)

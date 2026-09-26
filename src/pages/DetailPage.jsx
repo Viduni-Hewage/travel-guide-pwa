@@ -96,7 +96,7 @@ function DetailPage() {
                 {isDark ? <Sun className="w-4 h-4 text-white" /> : <Moon className="w-4 h-4 text-white" />}
               </button>
               <button
-                onClick={() => toggleFavorite(attraction.id)}
+                onClick={() => toggleFavorite(attraction.id, attraction.name)}
                 className="rounded-full flex items-center justify-center min-h-0 min-w-0"
                 style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}
               >
