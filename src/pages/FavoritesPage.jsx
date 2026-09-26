@@ -46,7 +46,10 @@ function FavoriteCard({ attraction, onRemove }) {
         </div>
 
         <button
-          onClick={() => onRemove(attraction.id)}
+          onClick={(e) => {
+            e.stopPropagation()
+            onRemove(attraction.id, attraction.name)
+          }}
           className="absolute top-3 right-3 w-8 h-8 rounded-full flex items-center justify-center min-h-0 min-w-0 cursor-pointer"
           style={{ backgroundColor: 'rgba(255,255,255,0.2)', backdropFilter: 'blur(4px)' }}
         >
