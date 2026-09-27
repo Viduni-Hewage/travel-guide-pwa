@@ -23,10 +23,14 @@ function DetailPage() {
   const { isDark, toggleTheme } = useTheme()
 
   const attraction = attractions.find((a) => a.id === parseInt(id))
-  const { weather, loading: weatherLoading } = useWeather(attraction.lat, attraction.lng)
-  const distance = getFormattedDistanceTo(attraction.lat, attraction.lng)
-  const favorite = isFavorite(attraction.id)
-  const galleryImages = attraction.images?.length ? attraction.images : FALLBACK_IMAGES
+
+  const { weather, loading: weatherLoading } = useWeather(attraction?.lat, attraction?.lng)
+
+  const distance = attraction ? getFormattedDistanceTo(attraction.lat, attraction.lng) : null
+
+  const favorite = attraction ? isFavorite(attraction.id) : false
+
+  const galleryImages = attraction?.images?.length ? attraction.images : FALLBACK_IMAGES
 
   if (!attraction) {
     return (
@@ -42,16 +46,26 @@ function DetailPage() {
   }
 
   const handleShare = async () => {
+    const shareData = {
+      title: attraction.name,
+      text: attraction.description,
+      url: window.location.href,
+    }
+
     if (navigator.share) {
       try {
-        await navigator.share({
-          title: attraction.name,
-          text: attraction.description,
-          url: window.location.href,
-        })
+        await navigator.share(shareData)
+        return
       } catch (err) {
-        if (err.name !== 'AbortError') throw err
+        if (err.name === 'AbortError') return
       }
+    }
+
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      alert('Link copied to clipboard!')
+    } catch {
+      alert('Unable to share this attraction.')
     }
   }
 

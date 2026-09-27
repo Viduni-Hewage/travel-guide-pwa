@@ -1,4 +1,4 @@
-import { Menu, Sun, Moon } from 'lucide-react'
+import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '../../context/ThemeContext'
 
 function MobileHeader({ isOffline }) {
