@@ -16,22 +16,22 @@ A fully responsive Progressive Web App that helps users discover and explore att
 
 ## 🛠️ Framework & Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | React 18 + Vite |
-| Styling | Tailwind CSS v4 |
-| Routing | React Router v6 (SPA) |
-| State Management | React Context API + Hooks |
-| Data Persistence | Browser LocalStorage |
-| External API | Open Meteo (weather, free, no API key) |
-| Geolocation | HTML5 Geolocation API |
-| Maps | Google Maps URL deep linking |
-| Sharing | Web Share API |
+| Layer | Technology                                          |
+|-------|-----------------------------------------------------|
+| Framework | React 19 + Vite 8                                   |
+| Styling | Tailwind CSS v4                                     |
+| Routing | React Router v7 (SPA)                               |
+| State Management | React Context API + Hooks                           |
+| Data Persistence | Browser LocalStorage                                |
+| External API | Open Meteo (weather, free, no API key)              |
+| Geolocation | HTML5 Geolocation API                               |
+| Maps | Google Maps URL deep linking                        |
+| Sharing | Web Share API + Clipboard API fallback |
 | PWA | vite-plugin-pwa (Service Worker + Web App Manifest) |
-| Icons | Lucide React |
-| Avatars | DiceBear Avatars API |
-| Fonts | Playfair Display (headings) + Inter (body) |
-| Code Quality | ESLint + Prettier + Husky + lint-staged |
+| Icons | Lucide React                                        |
+| Avatars | DiceBear Avatars API                                |
+| Fonts | Playfair Display (headings) + Inter (body)          |
+| Code Quality | ESLint + Prettier + Husky + lint-staged             |
 
 ---
 
@@ -49,41 +49,79 @@ A fully responsive Progressive Web App that helps users discover and explore att
 - 🛰️ **Geolocation API** — calculates real-time distance from user to each attraction using the Haversine formula
 - 🗺️ **Google Maps deep linking** — Get Directions opens native maps app
 - 🌤️ **Live weather** per attraction via Open Meteo API
-- 📤 **Web Share API** — native share sheet for attractions
-- 📡 **Offline support** — Service Worker caches pages and assets; app remains usable without internet
-- 📲 **Installable PWA** — Add to Home Screen or Install from browser
+- 📤 **Web Share API** — opens the native share sheet when supported, with clipboard link fallback
+- 🔔 **Browser notifications** — optional notifications when attractions are added to or removed from Favorites
+- 📡 **Offline support** — Service Worker caches application assets and selected external resources for offline use
+- 📲 **Installable PWA** — supports browser installation through the address bar/menu or the in-app Install Now control, with installed-state detection
 
 ---
 
 ## 📂 Project Structure
 
-    src/
-    ├── components/
-    │   ├── Layout/         Navbar, MobileHeader, BottomNav, Footer, Layout
-    │   ├── Attractions/    AttractionCard, CategoryFilter
-    │   ├── Weather/        WeatherWidget
-    │   └── UI/             Loader, OfflineBanner, ScrollToTop
-    ├── pages/              SplashPage, HomePage, DetailPage, FavoritesPage, SettingsPage, etc.
-    ├── context/            ThemeContext, FavoritesContext, LocationContext
-    ├── hooks/              useLocalStorage, useGeolocation, useWeather, useOnlineStatus, useInstallPrompt
-    ├── services/           weatherApi.js
-    ├── utils/              haversine.js
-    ├── data/               attractions.json (30 Sri Lanka locations)
-    └── App.jsx
-
+```text
+src/
+├── components/
+│   ├── Layout/
+│   │   ├── Navbar.jsx
+│   │   ├── MobileHeader.jsx
+│   │   ├── BottomNav.jsx
+│   │   ├── Footer.jsx
+│   │   └── Layout.jsx
+│   ├── UI/
+│   │   ├── Loader.jsx
+│   │   └── OfflineBanner.jsx
+│   └── ScrollToTop.jsx
+│
+├── pages/
+│   ├── SplashPage.jsx
+│   ├── PermissionPage.jsx
+│   ├── HomePage.jsx
+│   ├── DetailPage.jsx
+│   ├── FavoritesPage.jsx
+│   ├── SettingsPage.jsx
+│   ├── HelpPage.jsx
+│   ├── PrivacyPage.jsx
+│   └── OfflinePage.jsx
+│
+├── context/
+│   ├── ThemeContext.jsx
+│   ├── FavoritesContext.jsx
+│   └── LocationContext.jsx
+│
+├── hooks/
+│   ├── useLocalStorage.js
+│   ├── useGeolocation.js
+│   ├── useWeather.js
+│   ├── useOnlineStatus.js
+│   └── useInstallPrompt.js
+│
+├── services/
+│   └── weatherApi.js
+│
+├── utils/
+│   ├── haversine.js
+│   └── notifications.js
+│
+├── data/
+│   └── attractions.json
+│
+├── App.jsx
+└── main.jsx
+```
 ---
 
 ## 🚀 Running Locally
 
 ### Prerequisites
-- Node.js v18+ and npm
+- Node.js 22+ recommended
+- npm
 
 ### Setup
 
 Clone the repository:
 
-    git clone https://github.com/YOUR_USERNAME/lanka-explorer.git
-    cd lanka-explorer
+    git clone https://github.com/Viduni-Hewage/travel-guide-pwa.git
+    cd travel-guide-pwa
 
 Install dependencies:
 
@@ -109,17 +147,18 @@ App runs at http://localhost:5173
 
 ## 🌐 Browser Compatibility
 
-Tested and verified on:
-- ✅ Google Chrome (latest) — full PWA support including install prompt
-- ✅ Mozilla Firefox (latest) — core features work, manual install via browser menu
-- ✅ Safari (latest) — core features work, install via Share then Add to Home Screen
+### Verified
+- ✅ **Google Chrome (latest)** — core features, geolocation, notifications, sharing, offline behavior, and PWA installation tested successfully
 
-**Mobile simulation tested on:**
-- iPhone 12 Pro (390x844)
-- Pixel 5 (393x851)
-- Samsung Galaxy S20 (412x915)
+### Expected Support
+- **Safari** — core application features are designed to work with standard browser APIs; PWA installation behavior may differ from Chrome
+- **Firefox** — core browsing, search, favorites, theme, and weather features are designed to work where the required browser APIs are supported
 
-**Desktop tested at:** 1024px, 1280px, 1920px viewports
+### Responsive Testing
+The interface has been tested across representative mobile and desktop viewport sizes, including:
+
+- Mobile: 390px, 393px, and 412px widths
+- Desktop: 1024px, 1280px, and 1920px widths
 
 ---
 
@@ -127,18 +166,29 @@ Tested and verified on:
 
 LankaExplorer is a fully installable Progressive Web App:
 
-- **Service Worker** via vite-plugin-pwa precaches all static assets and uses cache-first strategy for app shell, network-first for weather API calls
-- **Offline Banner** appears automatically when connection is lost
-- Previously visited pages remain accessible offline
-- **Install** via the browser address bar icon, browser menu, or the in-app Install Now button in Settings
+- **Static assets** are precached by Workbox for offline access
+- **Google Fonts and Unsplash images** use a CacheFirst runtime caching strategy
+- **Open Meteo weather requests** use a NetworkFirst strategy with cached responses
+- **Offline Banner** appears automatically when the connection is lost
+- Core attraction information remains available offline because the attraction dataset is bundled locally with the app
+- **Install** is available through the browser address bar/menu or the in-app **Install Now** control in Settings
+- After installation, the Settings page detects the installed state and displays **Already Installed**
 
-Note: PWA installability is best tested on the deployed HTTPS URL rather than localhost, as Chrome's installability heuristics are unreliable during active local development.
+Some features still require connectivity, including fresh weather data and opening external Google Maps links.
+
+> Note: PWA installation is best tested on the deployed HTTPS version of the app. Local development behavior may differ from production.
 
 ---
 
 ## 🔑 Key Design Decisions
 
-- **No backend or authentication** — All user preferences including display name, avatar, favorites, and theme are stored in the browser's LocalStorage, satisfying the data persistence requirement without unnecessary complexity.
-- **Mock attraction data** — 30 real Sri Lankan locations with accurate coordinates, stored as local JSON, combined with a live external API (Open Meteo) to satisfy the asynchronous REST API requirement.
-- **Single font family across themes** — Playfair Display and Inter used consistently in both light and dark mode; only the color palette changes via CSS custom properties.
+- **Client-side persistence** — The app does not require user accounts or a backend. Display name, avatar, favorites, theme, notification preference, and PWA-related state are stored locally in the browser using LocalStorage.
+
+- **Local attraction dataset** — 30 curated Sri Lankan destinations are stored in local JSON with coordinates, descriptions, categories, and travel-related metadata. Live Open Meteo data supplements this dataset with current weather information.
+
+- **Lightweight map integration** — Google Maps is opened through destination deep links rather than an embedded Maps SDK, keeping the application simpler and avoiding additional API-key requirements.
+
+- **Offline-first PWA approach** — Core application assets and local attraction data are available through the service worker cache, while selected external resources use runtime caching strategies.
+
+- **Consistent visual system** — Playfair Display is used for headings and Inter for body text across both light and dark themes, while CSS custom properties control theme colors.
 

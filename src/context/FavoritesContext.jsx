@@ -11,7 +11,9 @@ export const FavoritesProvider = ({ children }) => {
     setFavorites((prev) => {
       const isAdding = !prev.includes(attractionId)
 
-      if (attractionName) {
+      const notificationsEnabled = localStorage.getItem('lanka_notifications') === 'true'
+
+      if (notificationsEnabled && attractionName) {
         if (isAdding) {
           sendNotification('Added to Favorites ❤️', {
             body: `${attractionName} has been saved to your travel list.`,

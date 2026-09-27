@@ -126,7 +126,7 @@ function SettingsPage({ installPrompt }) {
     await promptInstall()
   }
 
-  const locationLabel = location ? 'Colombo, Sri Lanka' : 'Location unavailable'
+  const locationLabel = location ? 'Location enabled' : 'Location unavailable'
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
