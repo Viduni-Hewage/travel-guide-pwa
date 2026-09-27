@@ -4,7 +4,6 @@ import { Moon, Bell, HelpCircle, Shield, ChevronRight, LogOut, Download, MapPin,
 import { useTheme } from '../context/ThemeContext'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import { useLocation } from '../context/LocationContext'
-import { useInstallPrompt } from '../hooks/useInstallPrompt'
 import { requestNotificationPermission, sendNotification } from '../utils/notifications.js'
 
 const AVATAR_SEEDS = ['Aria', 'Nomad', 'Felix', 'Jasmine', 'Orion', 'Luna']
@@ -98,7 +97,7 @@ function AvatarPickerModal({ currentSeed, onSelect, onClose }) {
   )
 }
 
-function SettingsPage() {
+function SettingsPage({ installPrompt }) {
   const navigate = useNavigate()
   const { isDark, toggleTheme } = useTheme()
   const { location } = useLocation()
@@ -108,8 +107,7 @@ function SettingsPage() {
   const [isEditingName, setIsEditingName] = useState(false)
   const [tempName, setTempName] = useState(displayName)
   const [showAvatarPicker, setShowAvatarPicker] = useState(false)
-  const { isInstalled, promptInstall } = useInstallPrompt()
-
+  const { isInstallable, isInstalled, promptInstall } = installPrompt
   const handleSaveName = () => {
     if (tempName.trim()) {
       setDisplayName(tempName.trim())
@@ -123,14 +121,9 @@ function SettingsPage() {
   }
 
   const handleInstall = async () => {
-    const installed = await promptInstall()
-    if (installed) {
-      console.log('App installed successfully')
-    } else {
-      alert(
-        'To install: click the install icon (⊕) in your browser\'s address bar, or use the browser menu → "Install LankaExplorer"'
-      )
-    }
+    if (!isInstallable) return
+
+    await promptInstall()
   }
 
   const locationLabel = location ? 'Colombo, Sri Lanka' : 'Location unavailable'
@@ -282,37 +275,54 @@ function SettingsPage() {
           </div>
         </div>
 
-        {!isInstalled && (
+        {(isInstalled || isInstallable) && (
           <div
             className="relative rounded-2xl overflow-hidden mb-6! p-6!"
             style={{ backgroundColor: 'var(--color-primary)' }}
           >
+            {/* Large faded background icon */}
             <div className="absolute right-4 bottom-4 opacity-10">
-              <Download className="w-24 h-24 text-white" />
+              {isInstalled ? <Check className="w-24 h-24 text-white" /> : <Download className="w-24 h-24 text-white" />}
             </div>
+
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h3 className="text-white text-lg font-bold mb-1!" style={{ fontFamily: "'Playfair Display', serif" }}>
                   Experience Sri Lanka Offline
                 </h3>
+
                 <p className="text-white opacity-70 text-sm mb-4!">
-                  Download LankaExplorer to access curated boutique guides and heritage maps without an internet
-                  connection.
+                  {isInstalled
+                    ? 'LankaExplorer is installed and ready to use offline.'
+                    : 'Download LankaExplorer to access curated boutique guides and heritage maps without an internet connection.'}
                 </p>
-                <button
-                  onClick={handleInstall}
-                  className="flex items-center gap-2 px-5! py-2! rounded-full text-white text-sm font-medium min-h-0! cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ backgroundColor: 'var(--color-accent)' }}
-                >
-                  <Download className="w-4 h-4" />
-                  Install Now
-                </button>
+
+                {isInstalled ? (
+                  <div
+                    className="inline-flex items-center gap-2 px-5! py-2! rounded-full text-white text-sm font-medium"
+                    style={{ backgroundColor: 'var(--color-accent)' }}
+                  >
+                    <Check className="w-4 h-4" />
+                    Already Installed
+                  </div>
+                ) : (
+                  <button
+                    onClick={handleInstall}
+                    className="flex items-center gap-2 px-5! py-2! rounded-full text-white text-sm font-medium min-h-0! cursor-pointer"
+                    style={{ backgroundColor: 'var(--color-accent)' }}
+                  >
+                    <Download className="w-4 h-4" />
+                    Install Now
+                  </button>
+                )}
               </div>
+
+              {/* Small top-right status icon */}
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 cursor-pointer"
+                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                 style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}
               >
-                <Download className="w-5 h-5 text-white" />
+                {isInstalled ? <Check className="w-5 h-5 text-white" /> : <Download className="w-5 h-5 text-white" />}
               </div>
             </div>
           </div>

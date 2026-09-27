@@ -12,8 +12,11 @@ import PermissionPage from './pages/PermissionPage.jsx'
 import HelpPage from './pages/HelpPage.jsx'
 import PrivacyPage from './pages/PrivacyPage.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
+import { useInstallPrompt } from './hooks/useInstallPrompt.js'
 
 export default function App() {
+  const installPrompt = useInstallPrompt()
+
   return (
     <ThemeProvider>
       <FavoritesProvider>
@@ -27,7 +30,7 @@ export default function App() {
                 <Route index element={<HomePage />} />
                 <Route path="attraction/:id" element={<DetailPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
-                <Route path="settings" element={<SettingsPage />} />
+                <Route path="settings" element={<SettingsPage installPrompt={installPrompt} />} />
                 <Route path="help" element={<HelpPage />} />
                 <Route path="privacy" element={<PrivacyPage />} />
               </Route>
