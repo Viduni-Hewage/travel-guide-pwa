@@ -40,7 +40,7 @@ function AttractionCard({ attraction }) {
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
           >
             <Navigation className="w-3 h-3" />
-            {distance}
+            {distance} away
           </div>
         )}
 
@@ -132,7 +132,7 @@ function DesktopAttractionCard({ attraction }) {
             style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
           >
             <Navigation className="w-3 h-3" />
-            {distance}
+            {distance} away
           </div>
         )}
         <button
