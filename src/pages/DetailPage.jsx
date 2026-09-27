@@ -19,7 +19,7 @@ function DetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { isFavorite, toggleFavorite } = useFavorites()
-  const { getFormattedDistanceTo } = useLocation()
+  const { locationLoading, getFormattedDistanceTo } = useLocation()
   const { isDark, toggleTheme } = useTheme()
 
   const attraction = attractions.find((a) => a.id === parseInt(id))
@@ -27,6 +27,14 @@ function DetailPage() {
   const { weather, loading: weatherLoading } = useWeather(attraction?.lat, attraction?.lng)
 
   const distance = attraction ? getFormattedDistanceTo(attraction.lat, attraction.lng) : null
+
+  const distanceLabel = locationLoading
+    ? null
+    : distance
+      ? `${distance} from your location`
+      : attraction?.distanceFromColombo
+        ? `${attraction.distanceFromColombo} km from Colombo`
+        : null
 
   const favorite = attraction ? isFavorite(attraction.id) : false
 
@@ -152,11 +160,11 @@ function DetailPage() {
                 ({(attraction.reviews / 1000).toFixed(1)}k reviews)
               </span>
             </div>
-            {distance && (
+            {distanceLabel && (
               <div className="flex items-center gap-1">
                 <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--color-text-muted)' }} />
                 <span className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                  {distance} from Colombo
+                  {distanceLabel}
                 </span>
               </div>
             )}
@@ -379,7 +387,7 @@ function DetailPage() {
               <div className="flex items-center gap-1">
                 <MapPin className="w-4 h-4" style={{ color: 'var(--color-text-muted)' }} />
                 <span className="text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                  {attraction.distanceFromColombo} km from Colombo • {attraction.location}
+                  {distanceLabel ? `${distanceLabel} • ${attraction.location}` : attraction.location}
                 </span>
               </div>
 
