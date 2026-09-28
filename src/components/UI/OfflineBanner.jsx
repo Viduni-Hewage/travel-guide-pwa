@@ -1,9 +1,6 @@
-import { useOnlineStatus } from '../../hooks/useOnlineStatus'
 import { WifiOff } from 'lucide-react'
 
-function OfflineBanner() {
-  const isOnline = useOnlineStatus()
-
+function OfflineBanner({ isOnline }) {
   if (isOnline) return null
 
   return (
@@ -12,6 +9,7 @@ function OfflineBanner() {
       style={{ backgroundColor: '#D97706' }}
     >
       <WifiOff className="w-3.5 h-3.5 text-white shrink-0" />
+
       <p className="text-white text-xs font-medium">You're offline — some features may be unavailable</p>
     </div>
   )

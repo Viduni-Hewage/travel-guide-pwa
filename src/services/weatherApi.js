@@ -9,13 +9,19 @@ export const fetchWeather = async (lat, lng) => {
   const data = await response.json()
   const current = data.current_weather
 
+  const currentHour = current.time.slice(0, 13)
+
+  const currentHourIndex = data.hourly.time.findIndex((time) => time.startsWith(currentHour))
+
+  const hourIndex = currentHourIndex >= 0 ? currentHourIndex : 0
+
   return {
     temperature: Math.round(current.temperature),
     windspeed: Math.round(current.windspeed),
     weatherCode: current.weathercode,
     condition: getWeatherCondition(current.weathercode),
-    humidity: data.hourly.relative_humidity_2m[0],
-    uvIndex: getUVLabel(data.hourly.uv_index[0]),
+    humidity: data.hourly.relative_humidity_2m?.[hourIndex] ?? null,
+    uvIndex: getUVLabel(data.hourly.uv_index?.[hourIndex] ?? 0),
     isDay: current.is_day,
   }
 }

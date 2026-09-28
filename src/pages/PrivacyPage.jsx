@@ -5,32 +5,32 @@ const sections = [
   {
     title: 'Information We Collect',
     content:
-      'LankaExplorer collects your device location (with permission) to calculate distances to attractions and fetch local weather data. Your display name and preferences are stored locally on your device and never transmitted to our servers.',
+      'LankaExplorer accesses your device location only after you grant permission through your browser. Your location is used to calculate distances to destinations, retrieve local weather information, and determine your approximate city or locality. Your display name, favorites, theme preference, and other app preferences are stored locally in your browser.',
   },
   {
     title: 'How We Use Your Data',
     content:
-      "Location data is used solely to calculate distances and fetch weather from Open Meteo API. We do not store, sell, or share your location with third parties. All app preferences including favorites, dark mode, and display name are stored in your browser's local storage.",
+      'Your location coordinates are used to calculate distances between you and destinations. When location-based features are enabled, coordinates are also sent to external services to retrieve weather information and determine an approximate location name. LankaExplorer does not operate its own backend database for storing your location.',
   },
   {
     title: 'Third Party Services',
     content:
-      'We use Open Meteo (open-meteo.com) for weather data — a free, open-source weather API that does not require personal data. We use Google Maps URL deep linking for directions — clicking Get Directions opens Google Maps with coordinates only.',
+      'LankaExplorer uses Open-Meteo to retrieve weather information and BigDataCloud to convert location coordinates into an approximate city or locality name. When you use Get Directions, LankaExplorer opens Google Maps using destination coordinates. These third-party services may process information according to their own privacy policies.',
   },
   {
     title: 'Data Storage',
     content:
-      'All your data is stored locally on your device using browser LocalStorage. This data never leaves your device. Clearing your browser data or uninstalling the app will remove all stored preferences.',
+      'App preferences such as favorites, display name, theme settings, notification preferences, and location-enabled status are stored locally on your device using browser LocalStorage. LankaExplorer does not maintain its own user account database or server-side storage for this information. Location coordinates used for external weather and location-name requests are not permanently stored by LankaExplorer.',
   },
   {
-    title: 'Your Rights',
+    title: 'Your Choices',
     content:
-      'You can clear all app data at any time by tapping Log Out in Settings, which clears all locally stored data. You can revoke location permission at any time through your browser settings.',
+      'You can deny or revoke location permission at any time through your browser or device settings. If location access is unavailable, LankaExplorer can still be used, but features such as current-location distances, local weather, and your location name may not be available. You can also clear locally stored app data through the app settings or your browser settings.',
   },
   {
     title: 'Contact',
     content:
-      'For privacy concerns, contact us at privacy@lankaexplorer.com. This privacy policy was last updated June 2024.',
+      'For privacy concerns, contact us at privacy@lankaexplorer.com. This privacy policy was last updated September 2026.',
   },
 ]
 
@@ -60,7 +60,7 @@ function PrivacyPage() {
           Privacy Policy
         </h1>
         <p className="text-sm mb-8!" style={{ color: 'var(--color-text-muted)' }}>
-          Last updated: June 2024
+          Last updated: September 2026
         </p>
 
         <div className="flex flex-col gap-6">

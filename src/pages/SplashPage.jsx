@@ -23,7 +23,6 @@ function SplashPage() {
     }, 25)
 
     const timer = setTimeout(() => {
-      localStorage.setItem('lanka_visited', 'true')
       navigate('/permission', { replace: true })
     }, 2600)
 

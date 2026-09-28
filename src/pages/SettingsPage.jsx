@@ -100,7 +100,7 @@ function AvatarPickerModal({ currentSeed, onSelect, onClose }) {
 function SettingsPage({ installPrompt }) {
   const navigate = useNavigate()
   const { isDark, toggleTheme } = useTheme()
-  const { location } = useLocation()
+  const { location, locationName, locationNameLoading } = useLocation()
   const [displayName, setDisplayName] = useLocalStorage('lanka_display_name', 'Explorer')
   const [avatarSeed, setAvatarSeed] = useLocalStorage('lanka_avatar_seed', 'Explorer')
   const [notifications, setNotifications] = useLocalStorage('lanka_notifications', false)
@@ -115,7 +115,7 @@ function SettingsPage({ installPrompt }) {
     setIsEditingName(false)
   }
 
-  const handleLogOut = () => {
+  const handleResetAppData = () => {
     localStorage.clear()
     navigate('/splash', { replace: true })
   }
@@ -126,7 +126,11 @@ function SettingsPage({ installPrompt }) {
     await promptInstall()
   }
 
-  const locationLabel = location ? 'Location enabled' : 'Location unavailable'
+  const locationLabel = location
+    ? locationNameLoading
+      ? 'Detecting location...'
+      : locationName || 'Location enabled'
+    : 'Location unavailable'
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
@@ -352,12 +356,12 @@ function SettingsPage({ installPrompt }) {
 
         <div className="flex justify-center pb-8">
           <button
-            onClick={handleLogOut}
+            onClick={handleResetAppData}
             className="flex items-center gap-2 px-6! py-3! rounded-full text-sm font-medium min-h-0! cursor-pointer"
             style={{ border: '1px solid var(--color-border)', color: '#ef4444' }}
           >
             <LogOut className="w-4 h-4" />
-            Log Out
+            Reset App Data
           </button>
         </div>
       </div>

@@ -464,7 +464,7 @@ function DetailPage() {
               <h2
                 className="text-2xl font-bold mb-4!"
                 style={{
-                  color: 'var(--des-footer-text',
+                  color: 'var(--des-footer-text)',
                   fontFamily: "'Playfair Display', serif",
                 }}
               >

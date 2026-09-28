@@ -174,7 +174,7 @@ function DesktopAttractionCard({ attraction }) {
           {attraction.nearestCity}
         </p>
         <p className="text-sm font-medium" style={{ color: 'var(--color-text2)' }}>
-          From ${attraction.entryFee?.match(/\d+/)?.[0] || '45'} / night
+          {attraction.entryFee}
         </p>
       </div>
     </div>
@@ -186,7 +186,7 @@ function HomePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [loading, setLoading] = useState(true)
 
-  const { location } = useLocation()
+  const { location, locationName, locationNameLoading } = useLocation()
   const { weather } = useWeather(location?.lat, location?.lng)
 
   const filtered = attractions.filter((a) => {
@@ -202,6 +202,13 @@ function HomePage() {
     return () => clearTimeout(timer)
   }, [])
 
+  const handleDesktopSearch = () => {
+    document.getElementById('destination-results')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+
   const categoryIcons = {
     Explore: Compass,
     Historical: Landmark,
@@ -215,12 +222,15 @@ function HomePage() {
       {/* ─── MOBILE LAYOUT ─── */}
       <div className="md:hidden px-5! py-6!" style={{ marginBottom: '2.5rem' }}>
         <div className="px-4 pt-4 pb-2">
-          <div className="flex items-center gap-1 mb-1">
-            <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--color-text2)' }} />
-            <span className="text-xs" style={{ color: 'var(--color-text2)' }}>
-              Colombo, Sri Lanka
-            </span>
-          </div>
+          {location && (locationNameLoading || locationName) && (
+            <div className="flex items-center gap-1 mb-1">
+              <MapPin className="w-3.5 h-3.5" style={{ color: 'var(--color-text2)' }} />
+
+              <span className="text-xs" style={{ color: 'var(--color-text2)' }}>
+                {locationNameLoading ? 'Detecting location...' : locationName}
+              </span>
+            </div>
+          )}
           <h1
             className="text-3xl font-bold my-1!"
             style={{
@@ -314,13 +324,13 @@ function HomePage() {
             Crafted for the Discerning Traveler
           </h2>
           <p className="text-white opacity-80 text-md mb-6!">
-            Every stay, route, and experience on Ceylon Escapes is hand-selected so you arrive somewhere that feels
-            genuinely rare.
+            Every destination and experience on LankaExplorer is carefully selected to help you discover the beauty,
+            culture, and diversity of Sri Lanka.
           </p>
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-1.5">
               <span className="text-white text-base">✦</span>
-              <span className="text-white text-sm opacity-90 font-medium">30+ Curated Stays</span>
+              <span className="text-white text-sm opacity-90 font-medium">Curated Destinations</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-white text-base">✦</span>
@@ -373,7 +383,9 @@ function HomePage() {
                   style={{ color: 'var(--color-text)' }}
                 />
                 <button
-                  className="px-9! py-3! rounded-full text-white text-md font-medium min-h-0 min-w-0"
+                  type="button"
+                  onClick={handleDesktopSearch}
+                  className="px-9! py-3! rounded-full text-white text-md font-medium min-h-0 min-w-0 cursor-pointer"
                   style={{ backgroundColor: 'var(--des-footer-text)' }}
                 >
                   Search
@@ -383,7 +395,7 @@ function HomePage() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto! py-8! px-7!">
+        <div id="destination-results" className="max-w-7xl mx-auto! py-8! px-7!">
           <div className="flex gap-3 mb-8!">
             {categories.map((cat) => (
               <button
@@ -438,13 +450,13 @@ function HomePage() {
               Crafted for the Discerning Traveler
             </h2>
             <p className="text-white opacity-80 mb-6! mx-auto">
-              Every stay, route, and experience on Ceylon Escapes is hand-selected so you arrive somewhere that feels
-              genuinely rare.
+              Every destination and experience on LankaExplorer is carefully selected to help you discover the beauty,
+              culture, and diversity of Sri Lanka.
             </p>
             <div className="flex items-center justify-center gap-6 flex-wrap">
               <div className="flex items-center gap-1.5">
                 <span className="text-white text-base">✦</span>
-                <span className="text-white text-sm opacity-90 font-medium">200+ Curated Stays</span>
+                <span className="text-white text-sm opacity-90 font-medium">Curated Destinations</span>
               </div>
               <span className="text-white opacity-40 text-sm">|</span>
               <div className="flex items-center gap-1.5">

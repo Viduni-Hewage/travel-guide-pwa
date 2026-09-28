@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Star, SlidersHorizontal, Navigation, Heart } from 'lucide-react'
+import { Star, SlidersHorizontal, Navigation, Heart, ChevronDown, Check } from 'lucide-react'
+
 import { useFavorites } from '../context/FavoritesContext'
 import { useLocation } from '../context/LocationContext'
 import attractions from '../data/attractions.json'
@@ -46,6 +48,7 @@ function FavoriteCard({ attraction, onRemove }) {
         </div>
 
         <button
+          type="button"
           onClick={(e) => {
             e.stopPropagation()
             onRemove(attraction.id, attraction.name)
@@ -94,13 +97,17 @@ function FavoriteCard({ attraction, onRemove }) {
               </span>
             ))}
           </div>
-          <span
-            className="text-xs whitespace-nowrap cursor-pointer"
-            style={{ color: 'var(--des-footer-text)' }}
+
+          <button
+            type="button"
+            className="text-xs whitespace-nowrap cursor-pointer min-h-0 min-w-0"
+            style={{
+              color: 'var(--des-footer-text)',
+            }}
             onClick={() => navigate(`/attraction/${attraction.id}`)}
           >
             View Details →
-          </span>
+          </button>
         </div>
       </div>
     </div>
@@ -111,7 +118,18 @@ function FavoritesPage() {
   const { favorites, toggleFavorite } = useFavorites()
   const navigate = useNavigate()
 
-  const savedAttractions = attractions.filter((a) => favorites.includes(a.id))
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  const [filterOpen, setFilterOpen] = useState(false)
+
+  const categories = ['All', 'Historical', 'Nature', 'Beaches', 'Hotels']
+
+  const savedAttractions = attractions.filter((attraction) => favorites.includes(attraction.id))
+
+  const filteredSavedAttractions =
+    selectedCategory === 'All'
+      ? savedAttractions
+      : savedAttractions.filter((attraction) => attraction.category === selectedCategory)
 
   return (
     <div className="min-h-screen pb-15! md:pb-4!" style={{ backgroundColor: 'var(--color-bg)' }}>
@@ -135,16 +153,77 @@ function FavoritesPage() {
           </div>
 
           {savedAttractions.length > 0 && (
-            <button
-              className="hidden md:flex items-center gap-2 px-4! py-2! rounded-full text-sm min-h-0 cursor-pointer"
-              style={{
-                color: 'var(--color-text)',
-                backgroundColor: 'transparent',
-              }}
-            >
-              <SlidersHorizontal className="w-4 h-4" />
-              Filter by Category
-            </button>
+            <div className="hidden md:block relative">
+              <button
+                type="button"
+                onClick={() => setFilterOpen((open) => !open)}
+                className="flex items-center gap-3 px-5! py-2.5! rounded-full text-sm font-medium cursor-pointer min-h-0"
+                style={{
+                  color: 'var(--color-text)',
+                  backgroundColor: 'var(--sample-bg1)',
+                  border: '1px solid var(--color-border)',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                }}
+              >
+                <SlidersHorizontal
+                  className="w-4 h-4"
+                  style={{
+                    color: 'var(--color-text-muted)',
+                  }}
+                />
+
+                <span>{selectedCategory === 'All' ? 'All Categories' : selectedCategory}</span>
+
+                <ChevronDown
+                  className={`w-4 h-4 transition-transform ${filterOpen ? 'rotate-180' : ''}`}
+                  style={{
+                    color: 'var(--color-text-muted)',
+                  }}
+                />
+              </button>
+
+              {filterOpen && (
+                <div
+                  className="absolute right-0 mt-2! w-52 rounded-2xl p-2! z-50"
+                  style={{
+                    backgroundColor: 'var(--color-bg)',
+                    border: '1px solid var(--color-border)',
+                    boxShadow: '0 12px 32px rgba(0,0,0,0.12)',
+                  }}
+                >
+                  {categories.map((category) => {
+                    const active = selectedCategory === category
+
+                    return (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={() => {
+                          setSelectedCategory(category)
+                          setFilterOpen(false)
+                        }}
+                        className="w-full flex items-center justify-between px-4! py-2.5! rounded-xl text-sm cursor-pointer min-h-0 transition-colors"
+                        style={{
+                          color: active ? 'var(--color-primary)' : 'var(--color-text)',
+                          backgroundColor: active ? 'var(--sample-bg2)' : 'transparent',
+                        }}
+                      >
+                        <span>{category === 'All' ? 'All Categories' : category}</span>
+
+                        {active && (
+                          <Check
+                            className="w-4 h-4"
+                            style={{
+                              color: 'var(--color-primary)',
+                            }}
+                          />
+                        )}
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
           )}
         </div>
 
@@ -169,6 +248,7 @@ function FavoritesPage() {
               Start exploring Sri Lanka and save the places that speak to your soul.
             </p>
             <button
+              type="button"
               onClick={() => navigate('/')}
               className="px-6! py-3! rounded-full text-white text-sm font-medium min-h-0 cursor-pointer"
               style={{ backgroundColor: 'var(--color-primary)' }}
@@ -178,34 +258,87 @@ function FavoritesPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6!">
-              {savedAttractions.map((attraction) => (
-                <FavoriteCard key={attraction.id} attraction={attraction} onRemove={toggleFavorite} />
-              ))}
+            <div style={{ marginTop: '5rem' }}>
+              {filteredSavedAttractions.length === 0 ? (
+                <div className="flex flex-col items-center text-center">
+                  <p
+                    className="text-base font-medium mb-2!"
+                    style={{
+                      color: 'var(--color-text)',
+                    }}
+                  >
+                    No saved {selectedCategory} places yet.
+                  </p>
+
+                  <p
+                    className="text-sm mb-5!"
+                    style={{
+                      color: 'var(--color-text-muted)',
+                    }}
+                  >
+                    Try another category or explore more destinations.
+                  </p>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory('All')}
+                    className="px-6! py-2.5! rounded-full text-sm font-medium cursor-pointer min-h-0"
+                    style={{
+                      color: 'var(--color-primary)',
+                      border: '1px solid var(--color-border)',
+                      backgroundColor: 'var(--color-bg)',
+                    }}
+                  >
+                    Show All Saved
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {filteredSavedAttractions.map((attraction) => (
+                    <FavoriteCard key={attraction.id} attraction={attraction} onRemove={toggleFavorite} />
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="mt-10! mb-2!">
-              <div className="hidden md:block mb-10!" style={{ borderBottom: '1px solid var(--color-border)' }} />
-              <div className="text-center">
-                <p className="text-base font-medium mb-2!" style={{ color: 'var(--des-footer-text)' }}>
-                  Want more recommendations?
-                </p>
-                <p className="text-sm mb-6! max-w-md mx-auto" style={{ color: 'var(--color-text-muted)' }}>
-                  Our local curators have hand-picked several new boutique villas and hidden waterfall trails that align
-                  with your interests.
-                </p>
-                <button
-                  onClick={() => navigate('/')}
-                  className="px-8! py-2! rounded-full text-sm font-medium min-h-0 cursor-pointer"
-                  style={{
-                    border: '1px solid var(--color-border)',
-                    color: 'var(--color-text)',
-                    backgroundColor: 'transparent',
-                  }}
-                >
-                  Explore More Gems →
-                </button>
-              </div>
+            {/* Recommendations */}
+            <div
+              className="text-center flex flex-col items-center"
+              style={{
+                marginTop: filteredSavedAttractions.length === 0 ? '10rem' : '3.5rem',
+              }}
+            >
+              <p
+                className="text-base font-medium mb-2!"
+                style={{
+                  color: 'var(--des-footer-text)',
+                }}
+              >
+                Want more recommendations?
+              </p>
+
+              <p
+                className="text-sm mb-6! w-full max-w-md px-4!"
+                style={{
+                  color: 'var(--color-text-muted)',
+                }}
+              >
+                Our local curators have hand-picked several new boutique villas and hidden waterfall trails that align
+                with your interests.
+              </p>
+
+              <button
+                type="button"
+                onClick={() => navigate('/')}
+                className="px-8! py-2! rounded-full text-sm font-medium min-h-0 cursor-pointer"
+                style={{
+                  border: '1px solid var(--color-border)',
+                  color: 'var(--color-text)',
+                  backgroundColor: 'transparent',
+                }}
+              >
+                Explore More Gems →
+              </button>
             </div>
           </>
         )}
