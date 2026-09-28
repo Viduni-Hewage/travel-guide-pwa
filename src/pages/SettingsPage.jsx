@@ -117,7 +117,7 @@ function SettingsPage({ installPrompt }) {
 
   const handleResetAppData = () => {
     localStorage.clear()
-    navigate('/splash', { replace: true })
+    window.location.replace('/splash')
   }
 
   const handleInstall = async () => {
