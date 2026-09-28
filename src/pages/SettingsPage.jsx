@@ -100,7 +100,7 @@ function AvatarPickerModal({ currentSeed, onSelect, onClose }) {
 function SettingsPage({ installPrompt }) {
   const navigate = useNavigate()
   const { isDark, toggleTheme } = useTheme()
-  const { location, locationName, locationNameLoading } = useLocation()
+  const { location, locationName, locationNameLoading, locationLoading, locationError, requestLocation } = useLocation()
   const [displayName, setDisplayName] = useLocalStorage('lanka_display_name', 'Explorer')
   const [avatarSeed, setAvatarSeed] = useLocalStorage('lanka_avatar_seed', 'Explorer')
   const [notifications, setNotifications] = useLocalStorage('lanka_notifications', false)
@@ -125,6 +125,20 @@ function SettingsPage({ installPrompt }) {
 
     await promptInstall()
   }
+
+  const handleEnableLocation = async () => {
+    await requestLocation()
+  }
+
+  const locationBlocked = locationError === 'Location permission denied'
+
+  const locationStatus = location
+    ? locationNameLoading
+      ? 'Detecting your location...'
+      : locationName || 'Location enabled'
+    : locationBlocked
+      ? 'Permission blocked — enable it in browser settings'
+      : 'Enable location for distance and local weather'
 
   const locationLabel = location
     ? locationNameLoading
@@ -276,6 +290,75 @@ function SettingsPage({ installPrompt }) {
                 }
               }}
             />{' '}
+          </div>
+          <div
+            className="flex items-center justify-between gap-3 px-4! py-4!"
+            style={{
+              borderTop: '1px solid var(--color-border)',
+            }}
+          >
+            <div className="flex items-center gap-3 min-w-0 flex-1">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center"
+                style={{
+                  backgroundColor: 'var(--color-card-bg)',
+                }}
+              >
+                <MapPin
+                  className="w-4 h-4"
+                  style={{
+                    color: 'var(--des-footer-text)',
+                  }}
+                />
+              </div>
+
+              <div>
+                <p
+                  className="text-sm font-medium"
+                  style={{
+                    color: 'var(--color-text)',
+                  }}
+                >
+                  Location Access
+                </p>
+
+                <p
+                  className="text-xs"
+                  style={{
+                    color: 'var(--color-text-muted)',
+                  }}
+                >
+                  {locationStatus}
+                </p>
+              </div>
+            </div>
+
+            {location ? (
+              <div
+                className="flex items-center gap-1.5 px-3! py-1.5! rounded-full text-xs font-medium"
+                style={{
+                  color: 'var(--color-primary)',
+                  backgroundColor: 'var(--sample-bg2)',
+                }}
+              >
+                <Check className="w-3.5 h-3.5" />
+                Enabled
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={handleEnableLocation}
+                disabled={locationLoading}
+                className="shrink-0 px-3.5! py-2! rounded-full text-xs font-semibold min-h-0! cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+                style={{
+                  color: 'var(--des-footer-text)',
+                  backgroundColor: 'var(--sample-bg2)',
+                  border: '1px solid var(--color-border)',
+                }}
+              >
+                {locationLoading ? 'Requesting...' : locationBlocked ? 'Retry' : 'Enable'}
+              </button>
+            )}
           </div>
         </div>
 
