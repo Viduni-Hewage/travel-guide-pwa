@@ -1,22 +1,25 @@
 import { useNavigate } from 'react-router-dom'
 import { MapPin } from 'lucide-react'
 import permissionBg from '../assets/images/permission-bg.png'
+import { useLocation } from '../context/LocationContext.jsx'
 
 function PermissionPage() {
   const navigate = useNavigate()
+  const { requestLocation, locationLoading, locationError } = useLocation()
 
-  const handleAllow = () => {
-    navigator.geolocation.getCurrentPosition(
-      () => {
-        navigate('/', { replace: true })
-      },
-      () => {
-        navigate('/', { replace: true })
-      }
-    )
+  const handleAllow = async () => {
+    const granted = await requestLocation()
+
+    if (!granted) {
+      return
+    }
+
+    localStorage.setItem('lanka_visited', 'true')
+    navigate('/', { replace: true })
   }
 
   const handleSkip = () => {
+    localStorage.setItem('lanka_visited', 'true')
     navigate('/', { replace: true })
   }
 
@@ -57,15 +60,18 @@ function PermissionPage() {
             Allow LankaExplorer to use your location for real-time distance and weather.
           </p>
 
+          {locationError && <p className="text-sm text-center text-red-200">{locationError}</p>}
+
           <button
             onClick={handleAllow}
-            className="w-full py-4 rounded-full text-white font-medium text-base flex items-center justify-center gap-2 transition-opacity hover:opacity-90 cursor-pointer"
+            disabled={locationLoading}
+            className="w-full py-4 rounded-full text-white font-medium text-base flex items-center justify-center gap-2 transition-opacity hover:opacity-90 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             style={{
               backgroundColor: 'var(--color-primary)',
               fontFamily: "'Inter', sans-serif",
             }}
           >
-            Allow Location →
+            {locationLoading ? 'Requesting Location...' : 'Allow Location →'}
           </button>
 
           <button

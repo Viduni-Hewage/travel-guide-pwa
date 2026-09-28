@@ -14,7 +14,7 @@ function Layout() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-bg)' }}>
       {/* Offline banner */}
-      <OfflineBanner />
+      <OfflineBanner isOnline={isOnline} />
 
       {/* Desktop nav */}
       <Navbar isOffline={!isOnline} />

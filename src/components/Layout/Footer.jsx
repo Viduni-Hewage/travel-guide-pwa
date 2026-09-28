@@ -1,6 +1,8 @@
-import { Globe, Share2, X } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
     <footer
       className="hidden md:block"
@@ -25,62 +27,67 @@ function Footer() {
             <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
               Elevating travel to an art form through curated experiences in Sri Lanka's most exclusive corners.
             </p>
-
-            <div className="flex gap-3 mt-2">
-              {[Globe, X, Share2].map((Icon, i) => (
-                <button
-                  key={i}
-                  className="w-9 h-9 rounded-full border flex items-center justify-center min-h-0 min-w-0"
-                  style={{
-                    borderColor: 'var(--color-border)',
-                    color: 'var(--des-footer-text)',
-                  }}
-                >
-                  <Icon className="w-4 h-4" />
-                </button>
-              ))}
-            </div>
           </div>
 
           <div>
             <h4
-              className="text-xs font-semibold tracking-widest uppercase mb-4!"
+              className="text-xs font-semibold tracking-widest uppercase mb-5!"
               style={{ color: 'var(--des-footer-text)' }}
             >
               Explore
             </h4>
-            <div className="flex flex-col gap-0">
-              {['Boutique Villas', 'Heritage Tours', 'Wildlife Expeditions', 'Coastal Retreats'].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-sm hover:opacity-100 transition-opacity min-h-0 min-w-0"
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
-                  {item}
-                </a>
-              ))}
+
+            <div className="flex flex-col gap-3">
+              <Link
+                to="/"
+                className="text-sm py-0! leading-5 hover:opacity-100 transition-opacity min-h-0 min-w-0"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                Destinations
+              </Link>
+
+              <Link
+                to="/favorites"
+                className="text-sm py-0! leading-5 hover:opacity-100 transition-opacity min-h-0 min-w-0"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                Saved Gems
+              </Link>
+
+              <Link
+                to="/settings"
+                className="text-sm py-0! leading-5 hover:opacity-100 transition-opacity min-h-0 min-w-0"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                Settings
+              </Link>
             </div>
           </div>
 
           <div>
             <h4
-              className="text-xs font-semibold tracking-widest uppercase mb-4!"
+              className="text-xs font-semibold tracking-widest uppercase mb-5!"
               style={{ color: 'var(--des-footer-text)' }}
             >
-              Our Agency
+              Information
             </h4>
-            <div className="flex flex-col gap-0">
-              {['About Us', 'Journal', 'Sustainability', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href="#"
-                  className="text-sm hover:opacity-100 transition-opacity min-h-0 min-w-0"
-                  style={{ color: 'var(--color-text-muted)' }}
-                >
-                  {item}
-                </a>
-              ))}
+
+            <div className="flex flex-col gap-3">
+              <Link
+                to="/help"
+                className="text-sm py-0! leading-5 hover:opacity-100 transition-opacity min-h-0 min-w-0"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                Help & Support
+              </Link>
+
+              <Link
+                to="/privacy"
+                className="text-sm py-0! leading-5 hover:opacity-100 transition-opacity min-h-0 min-w-0"
+                style={{ color: 'var(--color-text-muted)' }}
+              >
+                Privacy Policy
+              </Link>
             </div>
           </div>
         </div>
@@ -91,19 +98,26 @@ function Footer() {
         style={{ borderColor: 'var(--color-border)', paddingTop: '1rem' }}
       >
         <p className="text-xs" style={{ color: 'var(--color-text-muted)' }}>
-          © 2024 LankaExplorer. All Rights Reserved.
+          © {currentYear} LankaExplorer. All Rights Reserved.
         </p>
         <div className="flex gap-6">
-          {['Privacy Policy', 'Terms of Service', 'Sitemap'].map((item) => (
-            <a
-              key={item}
-              href="#"
+          <div className="flex gap-6">
+            <Link
+              to="/privacy"
               className="text-xs hover:opacity-100 transition-opacity min-h-0 min-w-0"
               style={{ color: 'var(--color-text-muted)' }}
             >
-              {item}
-            </a>
-          ))}
+              Privacy Policy
+            </Link>
+
+            <Link
+              to="/help"
+              className="text-xs hover:opacity-100 transition-opacity min-h-0 min-w-0"
+              style={{ color: 'var(--color-text-muted)' }}
+            >
+              Help & Support
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

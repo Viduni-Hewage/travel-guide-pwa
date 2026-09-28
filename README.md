@@ -80,8 +80,7 @@ src/
 │   ├── FavoritesPage.jsx
 │   ├── SettingsPage.jsx
 │   ├── HelpPage.jsx
-│   ├── PrivacyPage.jsx
-│   └── OfflinePage.jsx
+│   └── PrivacyPage.jsx
 │
 ├── context/
 │   ├── ThemeContext.jsx

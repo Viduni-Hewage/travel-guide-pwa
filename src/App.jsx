@@ -14,6 +14,16 @@ import PrivacyPage from './pages/PrivacyPage.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
 import { useInstallPrompt } from './hooks/useInstallPrompt.js'
 
+function HomeEntry() {
+  const hasVisited = localStorage.getItem('lanka_visited') === 'true'
+
+  if (!hasVisited) {
+    return <Navigate to="/splash" replace />
+  }
+
+  return <HomePage />
+}
+
 export default function App() {
   const installPrompt = useInstallPrompt()
 
@@ -27,7 +37,7 @@ export default function App() {
               <Route path="/splash" element={<SplashPage />} />
               <Route path="/permission" element={<PermissionPage />} />
               <Route path="/" element={<Layout />}>
-                <Route index element={<HomePage />} />
+                <Route index element={<HomeEntry />} />
                 <Route path="attraction/:id" element={<DetailPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
                 <Route path="settings" element={<SettingsPage installPrompt={installPrompt} />} />
