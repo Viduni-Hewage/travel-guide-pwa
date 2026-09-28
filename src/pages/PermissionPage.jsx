@@ -37,7 +37,7 @@ function PermissionPage() {
         }}
       />
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-end pb-16 px-8 md:justify-center md:pb-0">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-end pb-24 px-6 md:justify-center md:pb-0 md:px-8">
         <div className="flex flex-col items-center gap-6 w-full max-w-sm">
           <div
             className="w-16 h-16 rounded-full flex items-center justify-center"
@@ -82,7 +82,7 @@ function PermissionPage() {
             Maybe Later
           </button>
 
-          <div className="w-24 h-1 rounded-full opacity-40 mt-2" style={{ backgroundColor: '#D97706' }} />
+          <div className="w-24 h-1 rounded-full opacity-40 mt-4" style={{ backgroundColor: '#D97706' }} />
         </div>
       </div>
     </div>
